@@ -23,15 +23,36 @@ exports.getall = async (req, res) => {
 
 // find single blog by id
 exports.getone = async (req, res) => {
-    console.log(req.params);
+    // console.log(req.params);
     let data;
     try {
-        data = await Blog.findById(req.params.blogID);
+        const value = req.params.value;
+        const type = req.params.type;
+        // console.log(value);
+        // console.log(type);
+        let query;
+        switch(type){
+            case "000" :
+                query = {"id" : value};
+                break;
+            case "100" :
+                query = {"title" : value};
+                break;
+            case "010" :
+                query = {"author" : value};
+                break;
+            case "001" : 
+                query = {"desc" : value};
+                break;
+        }
+
+        // console.log(query);
+        data = await Blog.find(query);
     }
     catch (err) {
         if (err) return res.status(500).json(err);
     }
-    if (!data) return res.status(404).json({ "mag": "Blog not found" });
+    if (!data) return res.status(404).json({ "msg": "Blog not found" });
     res.status(200).json(data);
 
     // Blog.findById(req.params.blogID)
