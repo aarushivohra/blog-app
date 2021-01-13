@@ -25,9 +25,13 @@ app.get('/',(req,res)=>{
 //     res.send("checking");
 // })
 
+app.use('*', (req, res, next)=>{    //middleware
+    res.status(404).json({"msg": "Not found"});
+});
+
 require('./routes/route')(app);
 
-const Port=3000;
+const Port=process.env.PORT || 3000;
 
 app.listen(Port,(err)=>{
     if(err) console.log(err);
