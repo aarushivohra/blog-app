@@ -25,11 +25,12 @@ app.get('/',(req,res)=>{
 //     res.send("checking");
 // })
 
+
+
+require('./routes/route')(app);
 app.use('*', (req, res, next)=>{    //middleware
     res.status(404).json({"msg": "Not found"});
 });
-
-require('./routes/route')(app);
 
 const Port=process.env.PORT || 3000;
 
