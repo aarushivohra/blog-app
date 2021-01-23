@@ -9,6 +9,9 @@ app.use(express.json());
 // app.use(bodyparser.json());
 // app.use(bodyparser.urlencoded({extended:true}));
 
+const cors=require('cors');
+app.use(cors());
+
 mongoose.Promise=global.Promise;
 
 mongoose.connect(process.env.MONGO_URL,{ useNewUrlParser: true, useUnifiedTopology: true }).then(()=>
